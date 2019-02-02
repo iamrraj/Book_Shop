@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block css %}
+
+   <link href="{% static 'css/fa.css' %}" rel="stylesheet" type="text/css" media="all">
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container" >
+        <!--Carsoule Part-->
+        <div class="container">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="http://placehold.it/700x200/FF0000/FFFFFF?text=raj+rahul.com+Now" alt="First slide">
+                <div class="centered">
+                   <p>Centered</p>
+                    <p>Centered</p>
+                    <p>Centered</p>
+                </div>
+
+
+
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="http://placehold.it/700x200/0000FF/808080?text=raj+rahul.com+Now" alt="Second slide">
+                <div class="centered">
+                   <p>Centered</p>
+                    <p>Centered</p>
+                    <p>Centered</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="http://placehold.it/700x200?text=raj+rahul.com+Now" alt="Third slide">
+                <div class="centered">
+                   <p>Centered</p>
+                    <p>Centered</p>
+                    <p>Centered</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
+ <div><br><br>
+<form method = "GET" action =''>
+
+<div class="row">
+
+<div class="form-group col-4">
+  <input type="text" name='q' class="form-control" placeholder="Search Post" value =" {{ search_term}}" />
+</div>
+
+<div class="form-group col-2">
+<button type="submit" class="btn btn-primary " style="width: 150px;">Search</button>
+</div>
+</div>
+<form>
+
+
+
+
+ <div class = "row col-md-12" style="margin-bottom: 30px; margin-top: 30px;"  >
+
+    <div class = "col-md-2">
+
+
+</div>
+
+
+<div class = "col-md-10">
+<div class="container">
+    <h3 class="h3">List Of ALL Books Available</h3><br>
+    <div class="row">
+        
+{% for post in contacts %}
+
+<div class="col-md-4 col-sm-6 animated fadeInDown delay-2s">
+            <div class="product-grid4">
+                <div class="product-image4">
+                    <a href="{% url 'rahul:product_detail' post.pk %}">
+                    {% comment %} <a href=""> {% endcomment %}
+                        <img class="pic-1" src="{{ post.image.url }}" >
+                        <img class="pic-2" src="{{ post.image.url }}">
+                    </a>
+                    <ul class="social">
+                        <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                        <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                        <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                    </ul>
+                    <span class="product-new-label">New</span>
+                    {% comment %} <span class="product-discount-label">-{{ product.discount}}%</span> {% endcomment %}
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="{% url 'rahul:product_detail' post.pk %}">{{ post.name}}</a></h3>
+                    {% comment %} <h3 class="title"><a href="">{{ post.name}}</a></h3> {% endcomment %}
+                    <div class="price">
+                        Language: {{ post.categoty }}
+                        <span>${{ post.available}}</span>
+                    </div>
+                    <a class="add-to-cart" href="">View Details</a>
+                </div>
+            </div>
+        </div>
+
+{% endfor %}
+
+
+
+
+        
+    </div>
+</div>
+<hr>
+<div class="container" >
+<div class="pagination" style ="margin: 0 auto; width 300px;">
+    <span class="step-links text-center" style ="margin: 0 auto; width 300px;">
+        {% if contacts.has_previous %}
+            <a href="?page=1" class="btn btn-danger">&laquo; First</a>
+            <a href="?page={{ contacts.previous_page_number }} &search = {{ search_term}}" class="btn btn-danger">Prev</a>
+        {% endif %}
+
+        
+        <span class="current btn btn-primary">
+            Page {{ contacts.number }}  of  {{ contacts.paginator.num_pages }}  
+        </span>
+        
+
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }} &search = {{ search_term}}" class="btn btn-success">Next</a> |
+            <a href="?page={{ contacts.paginator.num_pages }}" class="btn btn-success">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+    </div>
+ </div>
+  </div>
+ </div>
+ </div
+
+ 
+ 
+
+{% endblock %}
